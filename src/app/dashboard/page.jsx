@@ -1,7 +1,7 @@
 import React from 'react'
 import { auth } from '@/lib/firebase'
 
-export default function page() {
+export default function Dashboard() {
 
     const user = auth.currentUser
     var displayName = ''

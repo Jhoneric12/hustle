@@ -18,7 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 
-export default function page() {
+export default function LoginPage() {
 
     const router = useRouter()
 

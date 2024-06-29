@@ -4,7 +4,7 @@ import React from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 
-export default function Auth() {
+export default function SignUpPage() {
 
     const email = 'jhonerix23@gmail.com';
     const password = 'JEAton123++';
