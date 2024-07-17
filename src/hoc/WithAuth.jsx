@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function withAuth (WrappedComponent) {
 
-    return (props) => {
+    const WithAuth = (props) => {
 
         const router = useRouter()
         const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,4 +24,6 @@ export default function withAuth (WrappedComponent) {
 
         return isAuthenticated ?  <WrappedComponent {...props} /> : null
     }
+
+    return WithAuth
 }
