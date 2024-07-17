@@ -20,7 +20,7 @@ export default function withAuth (WrappedComponent) {
             else {
                 setIsAuthenticated(true)
             }
-        }, [])
+        }, [router])
 
         return isAuthenticated ?  <WrappedComponent {...props} /> : null
     }
