@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Button from './Button';
 
 export default function Timer() {
   const [time, setTime] = useState(25 * 60); 
@@ -107,20 +108,25 @@ export default function Timer() {
           {tab === 1 ? formatTime(time) : tab === 2 ? formatTime(shortTime) : formatTime(longTime)}
         </h1>
         {isRunning ? (
-          <button
+          <div>
+            <Button
             className='text-white border-secondary-color border border-solid w-full lg:w-[35%] text-center py-3 rounded-md hover:opacity-70 bg-main-color'
             onClick={resetTimer}
-          >
-            Reset
-          </button>
-        ) : (
-          <button
+            >
+                Reset
+            </Button>
+          </div>
+        ) 
+        : 
+        (
+          <div className=''>
+            <Button
             className='text-white border-secondary-color border border-solid w-full lg:w-[35%] text-center py-2 rounded-md hover:opacity-70 bg-main-color'
             onClick={startTimer}
-            disabled={isRunning}
-          >
-            Start
-          </button>
+            >
+                Start
+            </Button>
+          </div>
         )}
       </div>
     </div>
