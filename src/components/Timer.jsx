@@ -82,28 +82,28 @@ export default function Timer() {
 
   return (
     <div className='select-none bg-[#F2F7FF] p-10 rounded-lg shadow-md'>
-      <div className='flex items-center flex-col'>
-        <div className='flex gap-4 text-[0.875rem]'>
+      <div className='flex items-center flex-col gap-4'>
+        <div className='flex gap-5 text-[0.875rem]'>
           <button
-            className={`text-font-color ${tab === 1 ? 'bg-main-color text-white' : ''} rounded-md p-2`}
+            className={`text-font-color ${tab === 1 ? 'bg-main-color text-white text-sm' : ''} rounded-md p-2`}
             onClick={() => toggle(1)}
           >
             Pomodoro
           </button>
           <button
-            className={`text-font-color ${tab === 2 ? 'bg-main-color text-white' : ''} rounded-md p-2`}
+            className={`text-font-color ${tab === 2 ? 'bg-main-color text-white text-sm' : ''} rounded-md p-2`}
             onClick={() => toggle(2)}
           >
             Short Break
           </button>
           <button
-            className={`text-font-color ${tab === 3 ? 'bg-main-color text-white' : ''} rounded-md p-2`}
+            className={`text-font-color ${tab === 3 ? 'bg-main-color text-white text-sm' : ''} rounded-md p-2`}
             onClick={() => toggle(3)}
           >
             Long Break
           </button>
         </div>
-        <h1 className='font-bold text-[5rem] text-main-color'>
+        <h1 className='font-bold text-[3rem] md:text-[5rem] text-main-color'>
           {tab === 1 ? formatTime(time) : tab === 2 ? formatTime(shortTime) : formatTime(longTime)}
         </h1>
         {isRunning ? (
@@ -115,7 +115,7 @@ export default function Timer() {
           </button>
         ) : (
           <button
-            className='text-white border-secondary-color border border-solid w-full lg:w-[35%] text-center py-3 rounded-md hover:opacity-70 bg-main-color'
+            className='text-white border-secondary-color border border-solid w-full lg:w-[35%] text-center py-2 rounded-md hover:opacity-70 bg-main-color'
             onClick={startTimer}
             disabled={isRunning}
           >
