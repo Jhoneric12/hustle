@@ -18,7 +18,7 @@ export default function UserLayout({ children }) {
             <div className='w-full'>
               <SideBar/>
             </div>
-            <div className='text-font-color px-10 lg:px-0 lg:pl-28 w-full py-4 z-10'>
+            <div className='text-font-color px-3 lg:px-0 lg:pl-28 w-full py-4 z-10'>
               {children}
             </div>
             <div className='hidden lg:flex lg:flex-col lg:gap-4 px-10'>

@@ -8,7 +8,7 @@ export default function SidebarLinks({ children, link, handleClose }) {
               href={link} 
               onClick={handleClose}
               className='flex gap-1 text-font-color 
-              text-xs md:text-sm items-center hover:bg-main-color
+              text-sm items-center hover:bg-main-color
               hover:text-white p-2 rounded-md'>
             {children}
         </Link>

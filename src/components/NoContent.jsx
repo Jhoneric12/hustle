@@ -13,7 +13,7 @@ export default function NoMessage({ message }) {
                         height={200}
                         alt="No Image" 
                     />
-                    <h1 className='text-font-color font-semibold'>No {message} at the moment</h1>
+                    <h1 className='text-font-color font-semibold text-sm '>No {message} at the moment</h1>
                 </div>
             </div>
         </>
