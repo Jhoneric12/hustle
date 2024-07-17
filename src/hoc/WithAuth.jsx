@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LoadingBackdrop from "@/components/Backdrop";
 
 export default function withAuth (WrappedComponent) {
 
@@ -22,7 +23,7 @@ export default function withAuth (WrappedComponent) {
             }
         }, [router])
 
-        return isAuthenticated ?  <WrappedComponent {...props} /> : null
+        return isAuthenticated ?  <WrappedComponent {...props} /> : <LoadingBackdrop/>
     }
 
     return WithAuth

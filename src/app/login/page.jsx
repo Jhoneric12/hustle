@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signInWithEmailAndPassword, 
-        signInWithRedirect, 
-        GoogleAuthProvider, 
-        FacebookAuthProvider, 
-        signInWithPopup } from 'firebase/auth'
+import { 
+    signInWithEmailAndPassword, 
+    signInWithRedirect, 
+    GoogleAuthProvider, 
+    FacebookAuthProvider, 
+    signInWithPopup,
+} from 'firebase/auth'
 import { auth, googleProvider, facebookProvider } from '@/lib/firebase'
 import AuthHeader from '@/components/AuthHeader'
 import Form from '@/components/Form'

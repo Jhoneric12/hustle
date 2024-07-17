@@ -4,15 +4,36 @@ import Image from 'next/image'
 import SidebarTitle from './SidebarTitle'
 import SidebarLinks from './SidebarLinks'
 import '../utils/styles.css'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/lib/firebase'
+import LoadingBackdrop from './Backdrop'
+import { useRouter } from 'next/navigation'
 
 export default function SideBar() {
+
+    const router = useRouter()
 
     const { credentials } = useAuth()
 
     const [isOpen, setIOpen] = useState(false)
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleOpen = () => {
         setIOpen(!isOpen)
+    }
+
+    const handleSignOut = () => {
+        setIsLoading(true)
+        signOut(auth)
+            .then(() => {
+                localStorage.removeItem('user')
+                router.push('/login')
+                setIsLoading(false)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
     }
 
   return (
@@ -101,12 +122,17 @@ export default function SideBar() {
                 <SidebarTitle>Lists</SidebarTitle>
             </div>
             <div className='absolute w-full bottom-0 py-3 pl-10'>
-                <SidebarLinks link={'#'}>
+                <button 
+                    className='flex gap-1 text-font-color 
+                                text-sm items-center hover:bg-main-color
+                              hover:text-white p-2 rounded-md w-full'
+                    onClick={handleSignOut}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                     </svg>
                     Log Out
-                </SidebarLinks>
+                </button>
             </div>
         </aside>
     </>
