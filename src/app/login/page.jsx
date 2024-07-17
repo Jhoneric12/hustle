@@ -6,8 +6,7 @@ import { signInWithEmailAndPassword,
         signInWithRedirect, 
         GoogleAuthProvider, 
         FacebookAuthProvider, 
-        signInWithPopup,
-        getRedirectResult} from 'firebase/auth'
+        signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider, facebookProvider } from '@/lib/firebase'
 import AuthHeader from '@/components/AuthHeader'
 import Form from '@/components/Form'
@@ -27,7 +26,7 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false)
 
     const goToDashboard = () => {
-        router.push('../dashboard')
+        router.push('/user/dashboard')
     }
 
     // Authentication by Email and Password
@@ -41,7 +40,7 @@ export default function LoginPage() {
             console.log(userCredentials.user)
         })
         .catch((error) => {
-            setIsLoading(false)
+            setIsLoading(false) 
             console.error = error.message;
             console.log('Invalid Username or password')
         })
@@ -52,11 +51,11 @@ export default function LoginPage() {
         e.preventDefault()
         await signInWithPopup(auth, googleProvider)
         .then((result) => {
-            const user = result.user
+            localStorage.setItem('user', JSON.stringify(result.user))
             const credential = GoogleAuthProvider.credentialFromResult(result)
-            const token = credential.accessToken;
-            console.log(user)
+            const token = credential.accessToken
             goToDashboard()
+            // console.log(user)
         })
         .catch((error) => {
             console.error(error)

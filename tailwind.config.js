@@ -15,6 +15,12 @@ module.exports = {
 
       colors: {
         'main-color': '#4285F4',
+        'font-color': '#424242',
+        'accent-color': '#E9F2FF',
+        'personal': '#ADCCFF',
+        'work': '#FFDFAF',
+        'organization': '#FFB2AD',
+        'school': '#B2FFAD'
       }
     },
   },
