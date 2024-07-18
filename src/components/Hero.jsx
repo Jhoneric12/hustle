@@ -47,7 +47,10 @@ export default function Hero() {
                         className='w-full h-full'
                         alt='Hero Image'
                     />
-                    <div data-aos="fade-up" className='bg-main-color p-4 absolute -top-6 right-7 rounded-lg'>
+                    <div 
+                        data-aos="fade-up" 
+                        className='bg-main-color p-4 absolute -top-6 right-7 rounded-lg'
+                    >
                         <h1 className='text-white text-sm'>ILOVEYOUU BEYBE</h1>
                     </div>
                 </div>
