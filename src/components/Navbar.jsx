@@ -3,10 +3,16 @@
 import React from 'react'
 import Button from './Button'
 import { useRouter } from 'next/navigation'
+import useAuth from '@/hooks/useAuth'
+import Image from 'next/image'
 
 export default function NavBar() {
 
     const router = useRouter()
+
+    const { credentials } = useAuth()
+
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const goToLogin = () => {
         router.push('/login')
@@ -18,7 +24,31 @@ export default function NavBar() {
                     <h1 className='text-main-color font-bold text-lg lg:text-2xl'>Hustle</h1>
                 </div>
                 <div>
-                    <Button onClick={goToLogin}>Login</Button>
+                    {
+                        user ? (
+                            <>
+                                <div className='flex gap-2 items-center'>
+                                    <Image
+                                        src={credentials?.photoURL}
+                                        width={40}
+                                        height={40}
+                                        alt='Profile Photo'
+                                        className='rounded-[50%]'
+                                    />
+                                    <h1 className='text-font-color text-sm font-semibold'>
+                                        {
+                                            credentials?.displayName
+                                        }
+                                    </h1>
+                                </div>
+                            </>
+                        )
+                        : (
+                            <>
+                                <Button onClick={goToLogin}>Login</Button>
+                            </>
+                        )
+                    }
                 </div>
             </nav>
         </>
