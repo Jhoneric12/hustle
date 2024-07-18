@@ -40,7 +40,7 @@ export default function LoginPage() {
     const [message, setIsMessge] = useState('')
 
     const actionCodeSettings =  {
-        url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/user/dashboard' : 'hustle-rho.vercel.app/user/dashboard',
+        url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/user/dashboard' : 'http://hustle-rho.vercel.app/user/dashboard',
         handleCodeInApp: true
     }
 
