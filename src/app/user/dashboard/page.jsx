@@ -71,7 +71,11 @@ const Dashboard = () => {
   return (
     <>
         <Message isOpen={isOpen} message={'Added to focus task'}/>
-        <PageTitle>{credentials?.displayName}'s Workspace</PageTitle>
+        <PageTitle>
+          {
+            credentials?.displayName
+          } 's Worskspace
+        </PageTitle>
         <h1 className='text-font-color font-semibold mb-6'>Todo</h1>
         <Textarea placeholder={'Task Name'}></Textarea>
         <h1 className='text-main-color font-semibold mb-4'>Today</h1>
