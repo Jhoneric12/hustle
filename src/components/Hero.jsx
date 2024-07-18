@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import HeroImage from '../assets/hero-image-iphone.png'
 import Button from './Button'
@@ -9,19 +9,28 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 export default function Hero() {
-
-    const user = JSON.parse(localStorage.getItem('user'))
     
     const router = useRouter()
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    let user 
 
     useEffect(() => {
         AOS.init({
             duration: 2000
         })
+
+        if (window !== 'undefined') {
+            const user = JSON.parse(window.localStorage.getItem('user'))
+            if(user) {
+                setIsAuthenticated(true)
+            }
+        }
     }, [])
 
     const goToLogin = () => {
-        if(user) {
+        if(isAuthenticated) {
             router.push('/user/dashboard')
         }
         else {
@@ -40,7 +49,7 @@ export default function Hero() {
                     <h1 className='font-bold text-xl lg:text-4xl'><span className='bg-accent-color px-2'>Hustle</span> your way to success.</h1>
                     <p className='text-sm leading-6 mt-4 md:w-[80%] lg:w-[70%]'>Unlock your potential. Hustle your way to success with a productivity app designed to transform your workflow and crush your goals.</p>
                     <div className='w-[10rem] mt-2'>
-                        <Button onClick={goToLogin}>{ user ? 'Home' : 'Try it now' }</Button>
+                        <Button onClick={goToLogin}>{ isAuthenticated ? 'Home' : 'Try it now' }</Button>
                     </div>
                 </div>
                 <div 

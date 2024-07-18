@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from './Button'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
@@ -12,7 +12,16 @@ export default function NavBar() {
 
     const { credentials } = useAuth()
 
-    const user = JSON.parse(window.localStorage.getItem('user'))
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    useEffect(() => {
+        if (window !== 'undefined') {
+            const user = JSON.parse(window.localStorage.getItem('user'))
+            if(user) {
+                setIsAuthenticated(true)
+            }
+        }
+    }, [])
 
     const goToLogin = () => {
         router.push('/login')
@@ -25,7 +34,7 @@ export default function NavBar() {
                 </div>
                 <div>
                     {
-                        user ? (
+                        isAuthenticated ? (
                             <>
                                 <div className='flex gap-2 items-center'>
                                     <Image
