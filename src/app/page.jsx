@@ -1,9 +1,12 @@
 import Image from "next/image";
+import NavBar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
-   <main className="flex items-center justify-center min-h-screen w-full">
-      <h1>This is the landing page</h1>
-   </main>
+   <>
+    <NavBar/>
+    <Hero/>
+   </>
   );
 }

@@ -23,7 +23,6 @@ import Input from '@/components/Input'
 import CircularProgress from '@mui/material/CircularProgress';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
-import Link from 'next/link'
 
 export default function LoginPage() {
 
@@ -31,11 +30,7 @@ export default function LoginPage() {
 
     const [email, setEmail] = useState('')
 
-    const [password, setPassword] = useState('')
-
     const [isLoading, setIsLoading] = useState(false)
-
-    const [error, setIsError] = useState('')
 
     const [message, setIsMessge] = useState('')
 
@@ -65,27 +60,10 @@ export default function LoginPage() {
             })
     }
 
-    // Authentication by Email and Password
-    const handleSignIn = async (e) => {
-        e.preventDefault()
-        setIsLoading(true)
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredentials) => {
-            setIsLoading(false)
-            goToDashboard()
-            console.log(userCredentials.user)
-        })
-        .catch((error) => {
-            setIsLoading(false) 
-            console.error = error.message;
-            setIsError('Invalid Credentials')
-        })
-    }
-
     // Authentication by google
-    const handleGoogle = async (e) => {
+    const handleGoogle = (e) => {
         e.preventDefault()
-        await signInWithPopup(auth, googleProvider)
+        signInWithPopup(auth, googleProvider)
         .then((result) => {
             localStorage.setItem('user', JSON.stringify(result.user))
             const credential = GoogleAuthProvider.credentialFromResult(result)
@@ -99,9 +77,9 @@ export default function LoginPage() {
     }
 
     // Authentication by meta
-    const handleFacebook = async (e) => {
+    const handleFacebook = (e) => {
         e.preventDefault()
-        await signInWithRedirect(auth, facebookProvider)
+        signInWithRedirect(auth, facebookProvider)
         .then((result) => {
             goToDashboard()
             const user = result.user;
