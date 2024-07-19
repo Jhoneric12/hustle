@@ -40,7 +40,7 @@ export default function Hero() {
     
     return (
         <>
-            <div className='min-h-screen px-4 py-6 md:px-10 lg:px-20 flex items-center text-font-color'>
+            <div className='min-h-screen px-4 py-6 md:px-14 lg:px-20 flex flex-col-reverse justify-center gap-8 md:gap-0 md:flex-row items-center text-font-color'>
                 <div 
                     data-aos="fade-right"
                     className='flex flex-col gap-2'
@@ -54,20 +54,20 @@ export default function Hero() {
                 </div>
                 <div 
                     data-aos="fade-left"
-                    className='hidden md:block relative'
+                    className='md:block relative'
                 >
                     <Image 
                         src={HeroImage}
                         width={400}
                         height={400}
-                        className='w-full h-full'
+                        className='w-[12rem] h-[12rem] md:w-[15rem] md:h-[15rem] lg:w-full lg:h-full'
                         alt='Hero Image'
                     />
                     <div 
                         data-aos="fade-up" 
-                        className='bg-main-color p-4 absolute -top-6 right-7 rounded-lg opacity-90'
+                        className='bg-main-color p-4 absolute -top-6 -right-6 lg:right-7 rounded-lg opacity-90'
                     >
-                        <h1 className='text-white text-sm'>ILOVEYOUU BEYBE</h1>
+                        <h1 className='text-white text-xs lg:text-sm'>ILOVEYOUU BEYBE</h1>
                     </div>
                 </div>
             </div>
