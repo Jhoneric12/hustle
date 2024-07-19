@@ -47,8 +47,8 @@ export default function Textarea({ placeholder, children }) {
     const optionList = [
         {
             id: 1,
-            title: 'Personal',
-            value: 'Personal'
+            title: 'Task',
+            value: 'Task'
         },
         {
             id: 2,
@@ -64,7 +64,7 @@ export default function Textarea({ placeholder, children }) {
             id: 4,
             title: 'School',
             value: 'School'
-        },
+        },  
     ]
 
   return (
@@ -81,7 +81,6 @@ export default function Textarea({ placeholder, children }) {
             <div className='flex flex-col items-center md:flex-row gap-4 justify-between bg-white p-4 border-t border-t-gray-300'>
                 <div className='flex items-center gap-2 w-full'>
                     <Dropdown onChange={handleChange}  name={'category'}>
-                        <option value=""> - Category - </option>
                         {
                             optionList.map((list) => (
                                 <>

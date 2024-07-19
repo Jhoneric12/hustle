@@ -9,7 +9,8 @@ import {
     query,
     onSnapshot,
     deleteDoc,
-    doc
+    doc,
+    updateDoc
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import useAuth from '@/hooks/useAuth'
@@ -46,7 +47,7 @@ const CompletedTasks = () => {
         const unsubscribe = onSnapshot(q, (querySnapShot) => {
                 const todoArray = []
                 querySnapShot.forEach((doc) => {
-                    todoArray.push({ id:doc.id, ...doc.data()})
+                    todoArray.push({ id: doc.id, ...doc.data() });
                 })
                 setTodo(todoArray)
                 setIsLoading(false)
@@ -80,9 +81,11 @@ const CompletedTasks = () => {
                         <>
                             <div key={todo?.id}>
                                 <Todos 
+                                    handleComplete={() => handleUpdate(todo?.id)}
                                     handleDelete={() => handleDelete(todo?.id)} 
                                     category={todo?.category}
                                     lineThrough={'line-through'}
+                                    isDone={true}
                                 >
                                     {todo?.todo}
                                 </Todos>

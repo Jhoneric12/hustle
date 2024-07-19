@@ -1,8 +1,55 @@
-import React from 'react'
+'use client'
 
-export default function Todos({ children, category, handleDelete, handleFocus, lineThrough, hasFocusMode, isFocus, handleComplete }) {
+import React, {useEffect, useRef, useState} from 'react'
+
+export default function Todos({ 
+  children, 
+  category, 
+  handleDelete, 
+  handleFocus, 
+  lineThrough, 
+  hasFocusMode, 
+  isFocus, 
+  isDone, 
+  handleComplete 
+}) {
 
     let borderColor
+
+    const [isShown, setIsShown] = useState(false)
+
+    const [isHovered, setIsHovered] = useState(false)
+
+    const hoverRef = useRef(null)
+
+    const handleSwitch = () => {
+      setIsShown(!isShown)
+    }
+
+    useEffect(() => {
+
+      const handleMouseEnter = () => {
+        setIsHovered(true)
+      }
+
+      const handleMouseLeave = () => {
+        setIsHovered(false)
+      }
+
+      const hover = hoverRef.current
+
+      if (hover) {
+        hover.addEventListener('mouseenter', handleMouseEnter)
+        hover.addEventListener('mouseleave', handleMouseLeave)
+
+        return () => {
+          hover.removeEventListener('mouseenter', handleMouseEnter)
+          hover.removeEventListener('mouseleave', handleMouseLeave)
+        }
+      }
+
+
+    }, [])
 
     const getCategory = (category) => {
         
@@ -32,9 +79,12 @@ export default function Todos({ children, category, handleDelete, handleFocus, l
                     {
                       isFocus && (
                         <>
-                          <svg onClick={handleComplete} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 hover:text-main-color">
+                          <div ref={hoverRef} onClick={handleComplete} className='w-1 h-1 relative select-none rounded-full border-font-color border flex justify-center items-center p-2 cursor-pointer'>
+                            <h1 className={`${isHovered ? 'text-main-color' : 'hidden'}`}>✔</h1>
+                          </div>
+                          {/* <svg onClick={handleComplete} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 hover:text-main-color">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                          </svg>
+                          </svg> */}
                         </>
                       )
                     }

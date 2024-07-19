@@ -29,13 +29,19 @@ const Dashboard = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
 
   const [userEmail, setUserEmail] = useState()
 
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, 'todos', id))
     setIsOpen(true)
+  }
+
+  const handleUpdate = async(id) => {
+    await updateDoc(doc(db, 'todos', id), {
+        isCompleted: true,
+    })
   }
 
   const handleFocus = async (id) => {
@@ -77,7 +83,7 @@ const Dashboard = () => {
 
   return (
     <>
-        <Message isOpen={isOpen} message={'Added to focus task'}/>
+        {/* <Message isOpen={isOpen} message={'Added to focus task'}/> */}
         <PageTitle>
           {
             credentials?.displayName ? credentials?.displayName : credentials?.email
@@ -104,10 +110,12 @@ const Dashboard = () => {
               <>
                 <div key={todo?.id}>
                   <Todos 
+                    handleComplete={() => handleUpdate(todo?.id)}
                     handleDelete={() => handleDelete(todo?.id)} 
                     category={todo?.category}
                     handleFocus={() => handleFocus(todo?.id)}
                     hasFocusMode={true}
+                    isFocus={true}
                   >
                     {todo?.todo}
                   </Todos>

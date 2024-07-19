@@ -82,7 +82,7 @@ export default function Timer() {
   };
 
   return (
-    <div className='select-none bg-[#F2F7FF] p-10 rounded-lg shadow-md'>
+    <div className='select-none bg-[#F2F7FF] py-10 px-1 rounded-lg shadow-md'>
       <div className='flex items-center flex-col gap-4'>
         <div className='flex gap-5 text-[0.875rem]'>
           <button

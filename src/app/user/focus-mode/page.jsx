@@ -27,6 +27,8 @@ const Focus = () => {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const [isDone, setIsDone] = useState(false)
+
     const handleUpdate = async(id) => {
         await updateDoc(doc(db, 'todos', id), {
             isCompleted: true,
@@ -37,7 +39,6 @@ const Focus = () => {
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "todos", id));
     }
-
 
     useEffect(() => {
         if (credentials?.uid) {

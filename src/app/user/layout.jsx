@@ -22,7 +22,7 @@ export default function UserLayout({ children }) {
               {children}
             </div>
             <div className='hidden lg:flex lg:flex-col lg:gap-4 px-10'>
-                {/* <TodoData/> */}
+                <TodoData/>
                 <Calendar/>
                 {/* <button className='border' onClick={removeLocalStorage}>Remove Local storage</button> */}
             </div>

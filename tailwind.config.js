@@ -20,7 +20,8 @@ module.exports = {
         'personal': '#ADCCFF',
         'work': '#FFDFAF',
         'organization': '#FFB2AD',
-        'school': '#B2FFAD'
+        'school': '#B2FFAD',
+        'grocery': '#F6DEE6'
       }
     },
   },
