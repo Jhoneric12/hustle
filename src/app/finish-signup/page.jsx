@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
 
-export default function page() {
+export default function RedirectPage() {
 
     const router = useRouter()
 
@@ -29,7 +29,7 @@ export default function page() {
             }
         }
         finishingSignIn()
-    }, [])
+    }, [router])
 
   return (
     <div className='bg-accent-color min-h-screen flex justify-center items-center'>
