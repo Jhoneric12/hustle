@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useAuth from '@/hooks/useAuth'
 import Image from 'next/image'
 import SidebarTitle from './SidebarTitle'
@@ -16,6 +16,8 @@ export default function SideBar() {
 
     const [isOpen, setIOpen] = useState(false)
 
+    const [userEmail, setUserEmail] = useState()
+
     const handleOpen = () => {
         setIOpen(!isOpen)
     }
@@ -30,6 +32,13 @@ export default function SideBar() {
                 console.error(error)
             })
     }
+
+    useEffect(() => {
+        if (window !== 'undefined') {
+            const email = JSON.parse(window.localStorage.getItem('user'))
+            setUserEmail(email)
+          }
+    }, [])
 
   return (
     <>
@@ -51,11 +60,16 @@ export default function SideBar() {
                                 />
                             )
                             :
-                            (<h1>No image</h1>)
+                            (
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-10">
+                                    <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
+                                </svg>
+
+                            )
                         }
                         <h1 className='text-font-color text-sm font-semibold'>
                             {
-                                credentials?.displayName
+                                credentials?.displayName ? credentials?.displayName : credentials?.email
                             }
                         </h1>
                     </div>
@@ -65,14 +79,24 @@ export default function SideBar() {
         <aside className={isOpen ? 'sidebar fixed bg-white h-screen shadow-xl w-[70%] lg:w-[20%] rounded-lg ml-3 mt-2 mb-2 overflow-y-auto z-50' : 'hidden'}>
             <div className='flex justify-between items-center gap-4 w-full mb-10 py-6 px-5'>
                 <div className='flex gap-2 items-center'>
-                    <Image
-                        src={credentials?.photoURL}
-                        width={40}
-                        height={40}
-                        alt='Profile Photo'
-                        className='rounded-[50%]'
-                    />
-                    <h1 className='text-font-color text-sm font-semibold'>{credentials?.displayName}</h1>
+                    {
+                        credentials?.photoURL ? (
+                            <Image
+                                src={credentials?.photoURL}
+                                width={40}
+                                height={40}
+                                alt='Profile Photo'
+                                className='rounded-[50%]'
+                            />
+                        )
+                        :
+                        (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-10">
+                                <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
+                            </svg>
+                        )
+                    }
+                    <h1 className='text-font-color text-sm font-semibold'>{ credentials?.displayName ? credentials?.displayName : credentials?.email}</h1>
                 </div>
                 <div className='flex justify-center items-center gap-2 text-font-color'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className='w-4 h-4 md:w-5 md:h-5'>

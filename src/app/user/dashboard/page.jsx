@@ -31,6 +31,8 @@ const Dashboard = () => {
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const [userEmail, setUserEmail] = useState()
+
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, 'todos', id))
     setIsOpen(true)
@@ -44,6 +46,11 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
+    if (window !== 'undefined') {
+      const email = JSON.parse(window.localStorage.getItem('user'))
+      setUserEmail(email)
+    }
+
     if (credentials?.uid) {
       setIsLoading(true);
       const q = query(
@@ -73,7 +80,7 @@ const Dashboard = () => {
         <Message isOpen={isOpen} message={'Added to focus task'}/>
         <PageTitle>
           {
-            credentials?.displayName
+            credentials?.displayName ? credentials?.displayName : credentials?.email
           } 's Worskspace
         </PageTitle>
         <h1 className='text-font-color font-semibold mb-6'>Todo</h1>

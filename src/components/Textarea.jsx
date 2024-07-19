@@ -31,7 +31,7 @@ export default function Textarea({ placeholder, children }) {
         try {
             setIsLoading(true)
             await addDoc(collection(db , 'todos'), {
-                userId: credentials?.uid,
+                userId: credentials?.uid ? credentials?.uid : JSON.parse(window.localStorage.getItem('user')),
                 ...todos,
                 isFocus: false,
                 isCompleted: false,

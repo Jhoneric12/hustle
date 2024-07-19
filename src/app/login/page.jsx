@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { 
-    signInWithEmailAndPassword, 
     signInWithRedirect, 
     GoogleAuthProvider, 
     FacebookAuthProvider, 
@@ -35,7 +34,7 @@ export default function LoginPage() {
     const [message, setIsMessge] = useState('')
 
     const actionCodeSettings =  {
-        url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/user/dashboard' : 'http://hustle-rho.vercel.app/user/dashboard',
+        url: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/finish-signup' : 'http://hustle-rho.vercel.app/finish-signup',
         handleCodeInApp: true
     }
 
@@ -48,9 +47,9 @@ export default function LoginPage() {
         setIsLoading(true)
         sendSignInLinkToEmail(auth, email, actionCodeSettings)
             .then(() => {
+                window.localStorage.setItem('user', JSON.stringify(email))
                 setIsMessge('Check your email to continue')
                 console.log('Sign In Successfully')
-                window.localStorage.setItem('emailForSignIn', email);
                 setIsLoading(false)
             })
             .catch((error) => {
