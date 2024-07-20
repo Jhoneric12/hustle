@@ -119,6 +119,8 @@ const PendingTask = () => {
                                   <Todos 
                                     handleComplete={() => handleUpdate(todo?.id)}
                                     handleDelete={() => handleDelete(todo?.id)} 
+                                    hasFocusMode={true}
+                                    handleFocus={() => handleFocus(todo?.id)}
                                     category={todo?.category}
                                     isFocus={true}
                                   >

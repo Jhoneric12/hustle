@@ -148,9 +148,9 @@ export default function SideBar() {
                 </SidebarLinks>
                 
             </div>
-            <div className='py-3 pl-10'>
+            {/* <div className='py-3 pl-10'>
                 <SidebarTitle>Lists</SidebarTitle>
-            </div>
+            </div> */}
             <div className='absolute w-full bottom-0 py-3 pl-10'>
                 <button 
                     className='flex gap-1 text-font-color 
