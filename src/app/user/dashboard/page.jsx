@@ -49,6 +49,32 @@ const Dashboard = () => {
     })
   }
 
+  const groupedTodos = todo.reduce((accumulator, todo) => {
+    let date = todo?.date
+
+    const isValidDate = isNaN(Date.parse(date));
+    if (isValidDate) {
+      date = "No due date";
+    }
+    
+    if(!accumulator[date]) {
+      accumulator[date] = []
+    }
+
+    accumulator[date].push(todo)
+    
+    return accumulator
+  }, {}) 
+  
+  const isToday = (dateString) => {
+    const dateToday = new Date()
+
+    const date = new Date(dateString)
+
+    return dateToday.toDateString() === date.toDateString()
+
+  }
+
   useEffect(() => {
     if (window !== 'undefined') {
       const email = JSON.parse(window.localStorage.getItem('user'))
@@ -89,7 +115,7 @@ const Dashboard = () => {
         </PageTitle>
         <h1 className='text-font-color font-semibold mb-6'>Todo</h1>
         <Textarea placeholder={'Task Name'}></Textarea>
-        <h1 className='text-main-color font-semibold mb-4'>Today</h1>
+        {/* <h1 className='text-main-color font-semibold mb-4'>Today</h1> */}
         <div className='flex flex-col gap-4'>
           {
             isLoading && 
@@ -104,21 +130,28 @@ const Dashboard = () => {
               </>
             )
             :
-            todo.map((todo) => (
-              <>
-                <div key={todo?.id}>
-                  <Todos 
-                    handleComplete={() => handleUpdate(todo?.id)}
-                    handleDelete={() => handleDelete(todo?.id)} 
-                    category={todo?.category}
-                    handleFocus={() => handleFocus(todo?.id)}
-                    hasFocusMode={true}
-                    isFocus={true}
-                  >
-                    {todo?.todo}
-                  </Todos>
-                </div>
-              </>
+            Object.keys(groupedTodos).map((date) => (
+              <div key={date} className='flex flex-col gap-4 mt-2'>
+                <h1 className='text-main-color font-semibold'>{date === 'No due date' ? date : isToday(date) ? 'Today' : new Date(date).toDateString()}</h1>
+                {
+                  groupedTodos[date].map((todo) => (
+                    <>
+                      <div key={todo?.id}>
+                        <Todos 
+                          handleComplete={() => handleUpdate(todo?.id)}
+                          handleDelete={() => handleDelete(todo?.id)} 
+                          category={todo?.category}
+                          handleFocus={() => handleFocus(todo?.id)}
+                          hasFocusMode={true}
+                          isFocus={true}
+                        >
+                          {todo?.todo}
+                        </Todos>
+                      </div>
+                    </>
+                  ))
+                }
+              </div>
             ))
           }
         </div>

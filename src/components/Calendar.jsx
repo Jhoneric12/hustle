@@ -5,7 +5,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 export default function Calendar() {
   return (
-    <div className='shadow-xl bg-white rounded-lg'>
+    <div className='shadow-xl bg-white rounded-lg sticky top-10'>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar/>
         </LocalizationProvider>

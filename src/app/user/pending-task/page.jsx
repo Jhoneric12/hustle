@@ -11,7 +11,8 @@ import {
   onSnapshot,
   deleteDoc,
   doc,
-  updateDoc
+  updateDoc,
+  orderBy
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import useAuth from '@/hooks/useAuth';
@@ -40,13 +41,40 @@ const PendingTask = () => {
         })
     }
 
+    const groupedTodos = todo.reduce((accumulator, todo) => {
+        let date = todo?.date
+
+        const isValidDate = isNaN(Date.parse(date));
+        if (isValidDate) {
+          date = "No due date";
+        }
+        
+        if(!accumulator[date]) {
+          accumulator[date] = []
+        }
+    
+        accumulator[date].push(todo)
+        
+        return accumulator
+      }, {}) 
+
+      const isToday = (dateString) => {
+        const dateToday = new Date()
+    
+        const date = new Date(dateString)
+    
+        return dateToday.toDateString() === date.toDateString()
+    
+      }
+
     useEffect(() => {
         if (credentials?.uid) {
             setIsLoading(true)
             const q = query(collection(db, 'todos'),
                       where('isCompleted', '==', false),
                       where('isFocus', '==', false),
-                      where('userId', '==', credentials?.uid)
+                      where('userId', '==', credentials?.uid),
+                      orderBy('timestamp')
                     )
             const unsubscribe = onSnapshot(q, (querySnapShot) => {
               const todoData = []
@@ -81,19 +109,26 @@ const PendingTask = () => {
                         </>
                     )
                     :
-                    todo.map((todo) => (
-                        <>
-                            <div key={todo?.id}>
-                                <Todos
-                                    handleDelete={() => handleDelete(todo?.id)}
-                                    handleFocus={()  => handleFocus(todo?.id)}
+                    Object.keys(groupedTodos).map((date) => (
+                        <div key={date} className='flex flex-col gap-4 mt-2'>
+                          <h1 className='text-main-color font-semibold'>{date === 'No due date' ? date : isToday(date) ? 'Today' : new Date(date).toDateString()}</h1>
+                          {
+                            groupedTodos[date].map((todo) => (
+                              <>
+                                <div key={todo?.id}>
+                                  <Todos 
+                                    handleComplete={() => handleUpdate(todo?.id)}
+                                    handleDelete={() => handleDelete(todo?.id)} 
                                     category={todo?.category}
-                                    hasFocusMode={true}
-                                >
+                                    isFocus={true}
+                                  >
                                     {todo?.todo}
-                                </Todos>
-                            </div>
-                        </>
+                                  </Todos>
+                                </div>
+                              </>
+                            ))
+                          }
+                        </div>
                     ))
                 }
             </div>
