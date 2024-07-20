@@ -35,6 +35,12 @@ const PendingTask = () => {
         setIsOpen(true)
     }
 
+    const handleUpdate = async(id) => {
+        await updateDoc(doc(db, 'todos', id), {
+            isCompleted: true,
+        })
+    }
+
     const handleFocus = async (id) => {
         await updateDoc(doc(db, 'todos', id), {
           isFocus: true

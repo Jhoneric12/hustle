@@ -40,32 +40,6 @@ const Focus = () => {
         await deleteDoc(doc(db, "todos", id));
     }
 
-    const groupedTodos = todo.reduce((accumulator, todo) => {
-        let date = todo?.date
-    
-        const isValidDate = isNaN(Date.parse(date));
-        if (isValidDate) {
-          date = "No due date";
-        }
-        
-        if(!accumulator[date]) {
-          accumulator[date] = []
-        }
-    
-        accumulator[date].push(todo)
-        
-        return accumulator
-    }, {}) 
-      
-      const isToday = (dateString) => {
-        const dateToday = new Date()
-    
-        const date = new Date(dateString)
-    
-        return dateToday.toDateString() === date.toDateString()
-    
-    }
-
     useEffect(() => {
         if (credentials?.uid) {
           setIsLoading(true);
