@@ -35,7 +35,6 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, 'todos', id))
-    setIsOpen(true)
   }
 
   const handleUpdate = async(id) => {
@@ -48,7 +47,6 @@ const Dashboard = () => {
     await updateDoc(doc(db, 'todos', id), {
       isFocus: true
     })
-    setIsOpen(true)
   }
 
   useEffect(() => {
