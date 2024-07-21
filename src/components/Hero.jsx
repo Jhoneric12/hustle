@@ -65,9 +65,9 @@ export default function Hero() {
                     />
                     <div 
                         data-aos="fade-up" 
-                        className='bg-main-color p-4 absolute -top-6 -right-6 lg:right-7 rounded-lg opacity-90'
+                        className='bg-main-color p-2 absolute -top-5 right-10  lg:right-28 rounded-lg opacity-90'
                     >
-                        <h1 className='text-white text-xs lg:text-sm'>ILOVEYOUU BEYBE</h1>
+                        <h1 className='text-white text-xs lg:text-sm'>Hi there</h1>
                     </div>
                 </div>
             </div>
