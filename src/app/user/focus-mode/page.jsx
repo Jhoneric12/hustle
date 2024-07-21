@@ -18,10 +18,6 @@ import {
 import useAuth from '@/hooks/useAuth'
 import Timer from '@/components/Timer';
 import NoMessage from '@/components/NoContent';
-import { 
-    AnimatePresence,
-    motion
- } from 'framer-motion';
 
 const Focus = () => {
 
@@ -98,24 +94,16 @@ const Focus = () => {
                     :
                     todo.map((todo) => (
                         <>
-                            <AnimatePresence>
-                                <motion.div 
-                                    key={todo?.id}
-                                    initial={{ opacity: 1, x: 0 }} 
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 50 }}
-                                    transition={{duration: 1}}
+                            <div key={todo?.id}>
+                                <Todos 
+                                    handleDelete={() => handleDelete(todo?.id)}
+                                    handleComplete={() => handleUpdate(todo?.id)}
+                                    category={todo?.category}
+                                    isFocus={true}
                                 >
-                                    <Todos 
-                                        handleDelete={() => handleDelete(todo?.id)}
-                                        handleComplete={() => handleUpdate(todo?.id)}
-                                        category={todo?.category}
-                                        isFocus={true}
-                                    >
-                                        {todo?.todo}
-                                    </Todos>
-                                </motion.div>
-                            </AnimatePresence>
+                                    {todo?.todo}
+                                </Todos>
+                            </div>
                         </>
                     ))
                 }

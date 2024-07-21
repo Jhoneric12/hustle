@@ -38,6 +38,11 @@ const Dashboard = () => {
   }
 
   const handleUpdate = async(id) => {
+    const delay = (ms) => new Promise((resolve) => {
+        setTimeout(resolve, ms)
+    })
+
+    await delay(1000)
     await updateDoc(doc(db, 'todos', id), {
         isCompleted: true,
     })
