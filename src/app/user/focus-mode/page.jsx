@@ -18,6 +18,10 @@ import {
 import useAuth from '@/hooks/useAuth'
 import Timer from '@/components/Timer';
 import NoMessage from '@/components/NoContent';
+import { 
+    AnimatePresence,
+    motion
+ } from 'framer-motion';
 
 const Focus = () => {
 
@@ -30,6 +34,13 @@ const Focus = () => {
     const [isDone, setIsDone] = useState(false)
 
     const handleUpdate = async(id) => {
+
+        const delay = (ms) => new Promise((resolve) => {
+            setTimeout(resolve, ms)
+        })
+
+        await delay(1000)
+
         await updateDoc(doc(db, 'todos', id), {
             isCompleted: true,
             isFocus: false
@@ -87,16 +98,24 @@ const Focus = () => {
                     :
                     todo.map((todo) => (
                         <>
-                            <div key={todo?.id}>
-                            <Todos 
-                                handleDelete={() => handleDelete(todo?.id)}
-                                handleComplete={() => handleUpdate(todo?.id)}
-                                category={todo?.category}
-                                isFocus={true}
-                            >
-                                {todo?.todo}
-                            </Todos>
-                            </div>
+                            <AnimatePresence>
+                                <motion.div 
+                                    key={todo?.id}
+                                    initial={{ opacity: 1, x: 0 }} 
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: 50 }}
+                                    transition={{duration: 1}}
+                                >
+                                    <Todos 
+                                        handleDelete={() => handleDelete(todo?.id)}
+                                        handleComplete={() => handleUpdate(todo?.id)}
+                                        category={todo?.category}
+                                        isFocus={true}
+                                    >
+                                        {todo?.todo}
+                                    </Todos>
+                                </motion.div>
+                            </AnimatePresence>
                         </>
                     ))
                 }

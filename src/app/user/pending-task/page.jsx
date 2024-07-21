@@ -58,7 +58,7 @@ const PendingTask = () => {
         if(!accumulator[date]) {
           accumulator[date] = []
         }
-    
+     
         accumulator[date].push(todo)
         
         return accumulator
